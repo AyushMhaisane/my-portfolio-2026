@@ -23,7 +23,7 @@ const Contact = () => {
 
         // --- 1. Save to MongoDB (Backend) ---
         try {
-            await fetch('http://localhost:5000/api/contact', {
+            await fetch('https://ayush-portfolio-api-55nm.onrender.com/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -53,7 +53,7 @@ const Contact = () => {
         <section id="contact" className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
             <FadeIn>
                 <div className="flex flex-col md:flex-row gap-6 bg-[#111] border border-gray-800 rounded-3xl overflow-hidden p-6 md:p-10 relative group">
-                    
+
                     {/* Glow Effect */}
                     <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-cyan-500/10 rounded-full blur-[100px] -z-10 group-hover:bg-cyan-500/20 transition-all duration-500"></div>
 

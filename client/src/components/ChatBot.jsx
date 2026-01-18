@@ -112,12 +112,12 @@ const ChatBot = () => {
 
             // 3. Save Chat History to MongoDB
             try {
-                await fetch('http://localhost:5000/api/chat', {
+                await fetch('https://ayush-portfolio-api-55nm.onrender.com/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        userMessage: userMessage, 
-                        botResponse: botResponse 
+                    body: JSON.stringify({
+                        userMessage: userMessage,
+                        botResponse: botResponse
                     }),
                 });
                 console.log("Chat stored in MongoDB");
@@ -173,7 +173,7 @@ const ChatBot = () => {
                                     className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.sender === "user"
                                         ? "bg-cyan-500 text-black rounded-tr-none"
                                         : "bg-gray-800 text-gray-200 rounded-tl-none border border-gray-700"
-                                    }`}
+                                        }`}
                                 >
                                     <ReactMarkdown
                                         components={{
