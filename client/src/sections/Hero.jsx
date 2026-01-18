@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FiDownload, FiMail } from 'react-icons/fi';
 import { ArrowUpRight, Cpu, Database, Globe, Code2, Layers } from 'lucide-react';
 import { Typewriter } from 'react-simple-typewriter';
@@ -7,37 +7,13 @@ import profileImg from '../assets/profile.png';
 import { Helmet } from 'react-helmet-async';
 
 const Hero = () => {
-    // State for LeetCode Stats
-    const [leetcodeStats, setLeetcodeStats] = useState({
+    // STATIC STATS (Fast & Reliable)
+    const leetcodeStats = {
         total: '170+',
         easy: '50+',
         medium: '100+',
         hard: '20+'
-    });
-
-    // Fetch Real-Time Stats
-    useEffect(() => {
-        const fetchStats = async () => {
-            try {
-                // Using a public proxy to get LeetCode data
-                const res = await fetch('https://leetcode-stats-api.herokuapp.com/Ayush_Mhaisane');
-                const data = await res.json();
-
-                if (data.status === 'success') {
-                    setLeetcodeStats({
-                        total: data.totalSolved,
-                        easy: data.easySolved,
-                        medium: data.mediumSolved,
-                        hard: data.hardSolved
-                    });
-                }
-            } catch (error) {
-                console.error("Using fallback stats due to API error", error);
-            }
-        };
-
-        fetchStats();
-    }, []);
+    };
 
     return (
         <section id="home" className="max-w-7xl mx-auto px-4 pt-32 pb-20">
@@ -47,7 +23,6 @@ const Hero = () => {
                 <meta name="description" content="Portfolio of Ayush Mhaisane, a Full Stack Engineer..." />
             </Helmet>
 
-            {/* 🔥 INCREASED HEIGHT HERE: md:h-[600px] */}
             <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
 
                 {/* 1. Large Intro Card (Top Left) */}

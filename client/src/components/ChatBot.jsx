@@ -10,7 +10,7 @@ const ChatBot = () => {
     ]);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
-
+    
     // REFS (These persist without re-rendering)
     const messagesEndRef = useRef(null);
     const chatSessionRef = useRef(null);
@@ -76,8 +76,19 @@ const ChatBot = () => {
     useEffect(() => {
         const initChat = async () => {
             try {
-                const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                // Ensure API key is available
+                const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+                if (!apiKey) {
+                    console.error("Gemini API Key is missing");
+                    return;
+                }
+
+                const genAI = new GoogleGenerativeAI(apiKey);
+                
+                // --- MODEL SELECTION ---
+           
+                
+                const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
                 chatSessionRef.current = model.startChat({
                     history: [
@@ -97,7 +108,7 @@ const ChatBot = () => {
         };
 
         initChat();
-    }, []); // Empty dependency array ensures this runs only once
+    }, []); 
 
     useEffect(() => {
         scrollToBottom();
@@ -108,36 +119,39 @@ const ChatBot = () => {
         if (!input.trim()) return;
 
         const userMessage = input;
-        setInput(""); // Clear input UI immediately
+        setInput(""); 
         setMessages((prev) => [...prev, { text: userMessage, sender: "user" }]);
         setIsTyping(true);
 
         try {
             if (!chatSessionRef.current) {
-                throw new Error("Chat session not initialized");
+                // Try re-initializing if connection was lost or not set up
+                const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+                const genAI = new GoogleGenerativeAI(apiKey);
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                chatSessionRef.current = model.startChat({
+                     history: [{ role: "user", parts: [{ text: portfolioContext }] }]
+                });
             }
 
-            // 1. Get Response from Gemini (Using the PERSISTENT session)
             const result = await chatSessionRef.current.sendMessage(userMessage);
             const response = await result.response;
             const botResponse = response.text();
 
-            // 2. Add Bot Response to UI
             setMessages((prev) => [...prev, { text: botResponse, sender: "bot" }]);
 
-            // 3. Save Chat History to MongoDB
-            // Note: We use the backend URL from environment variables for safety
+            // Save Chat History to MongoDB (Optional)
             const apiUrl = import.meta.env.VITE_API_URL || 'https://ayush-portfolio-api-55nm.onrender.com';
-
-            await fetch(`${apiUrl}/api/chat`, {
+            
+            // Fire and forget (don't await this to keep chat fast)
+            fetch(`${apiUrl}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     userMessage: userMessage,
                     botResponse: botResponse
                 }),
-            });
-            console.log("Chat stored in MongoDB");
+            }).catch(err => console.error("DB Save Error:", err));
 
         } catch (error) {
             console.error("Chat Error:", error);
