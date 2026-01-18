@@ -10,11 +10,10 @@ const ChatBot = () => {
     ]);
     const [input, setInput] = useState("");
     const [isTyping, setIsTyping] = useState(false);
-    const messagesEndRef = useRef(null);
 
-    // Initialize Gemini
-    const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    // REFS (These persist without re-rendering)
+    const messagesEndRef = useRef(null);
+    const chatSessionRef = useRef(null);
 
     // Portfolio Context
     const portfolioContext = `
@@ -73,6 +72,33 @@ const ChatBot = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
+    // Initialize Chat Session ONCE on mount
+    useEffect(() => {
+        const initChat = async () => {
+            try {
+                const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
+                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+                chatSessionRef.current = model.startChat({
+                    history: [
+                        {
+                            role: "user",
+                            parts: [{ text: portfolioContext }],
+                        },
+                        {
+                            role: "model",
+                            parts: [{ text: "Understood. I am ready to answer questions about Ayush." }],
+                        },
+                    ],
+                });
+            } catch (error) {
+                console.error("Failed to initialize chat:", error);
+            }
+        };
+
+        initChat();
+    }, []); // Empty dependency array ensures this runs only once
+
     useEffect(() => {
         scrollToBottom();
     }, [messages, isTyping]);
@@ -82,28 +108,17 @@ const ChatBot = () => {
         if (!input.trim()) return;
 
         const userMessage = input;
-        setInput(""); // Clear input
-
-        // Add User Message
+        setInput(""); // Clear input UI immediately
         setMessages((prev) => [...prev, { text: userMessage, sender: "user" }]);
         setIsTyping(true);
 
         try {
-            // 1. Get Response from Gemini
-            const chat = model.startChat({
-                history: [
-                    {
-                        role: "user",
-                        parts: [{ text: portfolioContext }],
-                    },
-                    {
-                        role: "model",
-                        parts: [{ text: "Understood. I am ready to answer questions about Ayush." }],
-                    },
-                ],
-            });
+            if (!chatSessionRef.current) {
+                throw new Error("Chat session not initialized");
+            }
 
-            const result = await chat.sendMessage(userMessage);
+            // 1. Get Response from Gemini (Using the PERSISTENT session)
+            const result = await chatSessionRef.current.sendMessage(userMessage);
             const response = await result.response;
             const botResponse = response.text();
 
@@ -111,25 +126,24 @@ const ChatBot = () => {
             setMessages((prev) => [...prev, { text: botResponse, sender: "bot" }]);
 
             // 3. Save Chat History to MongoDB
-            try {
-                await fetch('https://ayush-portfolio-api-55nm.onrender.com/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        userMessage: userMessage,
-                        botResponse: botResponse
-                    }),
-                });
-                console.log("Chat stored in MongoDB");
-            } catch (dbError) {
-                console.error("Failed to save chat to DB:", dbError);
-            }
+            // Note: We use the backend URL from environment variables for safety
+            const apiUrl = import.meta.env.VITE_API_URL || 'https://ayush-portfolio-api-55nm.onrender.com';
+
+            await fetch(`${apiUrl}/api/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userMessage: userMessage,
+                    botResponse: botResponse
+                }),
+            });
+            console.log("Chat stored in MongoDB");
 
         } catch (error) {
-            console.error("Gemini Error:", error);
+            console.error("Chat Error:", error);
             setMessages((prev) => [
                 ...prev,
-                { text: "Oops! I encountered an error connecting to the AI. Please try again later.", sender: "bot" }
+                { text: "Oops! My AI brain is having a moment. Please try again later.", sender: "bot" }
             ]);
         } finally {
             setIsTyping(false);
