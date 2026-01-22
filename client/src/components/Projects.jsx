@@ -1,9 +1,36 @@
 import React from 'react';
 import { Github, ExternalLink, Code2, Database } from 'lucide-react';
-// 1. Import FadeIn
 import FadeIn from './FadeIn';
 
 const projects = [
+    // 1. LeetCode Stats Tracker
+    {
+        title: "LeetCode Stats Tracker",
+        description: "Web app displaying detailed user stats with animated progress circles. Uses a custom Node.js proxy to handle LeetCode GraphQL API requests.",
+        tags: ["JavaScript", "Node.js", "GraphQL", "CSS", "API"],
+        github: "https://github.com/AyushMhaisane/leetcode-tracker",
+        demo: "https://ayush-mhaisane.vercel.app",
+        color: "from-yellow-500 to-orange-500"
+    },
+    // 2. Personal Portfolio (NEW ADDITION)
+    {
+        title: "Personal Portfolio (This Site)",
+        description: "Interactive portfolio featuring a custom AI Chatbot powered by Google Gemini, real-time backend integration, and 3D Bento Grid design. Optimized for SEO and performance.",
+        tags: ["React", "Gemini AI", "Node.js", "MongoDB", "Framer Motion"],
+        github: "https://github.com/AyushMhaisane/my-portfolio-2026",
+        demo: "https://ayush-mhaisane.vercel.app",
+        color: "from-cyan-500 to-blue-500"
+    },
+    // 3. AI-Powered IT Support
+    {
+        title: "AI-Powered IT Support Platform",
+        description: "Full-stack ticket system with real-time chat. Uses Google Gemini via n8n workflows to automatically categorize issues and assign priority.",
+        tags: ["Next.js", "Supabase", "n8n", "Gemini AI", "Docker"],
+        github: "https://github.com/AyushMhaisane/ai-ticket-system",
+        demo: "https://ai-ticket-system.vercel.app",
+        color: "from-indigo-500 to-violet-500"
+    },
+    // 4. LawLens
     {
         title: "LawLens - AI Legal Assistant",
         description: "AI-powered consumer rights advocate analyzing contracts using GPT-4o Vision. Helps users understand legal jargon instantly.",
@@ -12,14 +39,16 @@ const projects = [
         demo: "#",
         color: "from-blue-500 to-cyan-500"
     },
+    // 5. TechFlow Agency
     {
-        title: "Cafe Lead Gen Tool",
-        description: "Automated lead generation system targeting businesses without websites. streamlined outreach for freelance web services.",
-        tags: ["Node.js", "Puppeteer", "Google Maps API"],
-        github: "#",
-        demo: "#",
-        color: "from-emerald-500 to-green-500"
+        title: "TechFlow Agency Website",
+        description: "High-performance digital agency site. Features real-time EmailJS forms, floating WhatsApp integration, and persuasion-focused Framer Motion animations.",
+        tags: ["React", "Tailwind", "Framer Motion", "EmailJS"],
+        github: "https://github.com/AyushMhaisane/techflow-agency",
+        demo: "https://techflow.vercel.app",
+        color: "from-blue-600 to-indigo-600"
     },
+    // 6. WordPress Architecture
     {
         title: "WordPress Custom Architecture",
         description: "Deep dive into WP internals. Custom themes and plugin development focusing on performance and scalability.",
@@ -40,7 +69,6 @@ const Projects = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {projects.map((project, index) => (
-                    // 2. WRAPPER: Added FadeIn with staggered delay
                     <FadeIn key={index} delay={index * 0.2}>
                         <div
                             className="group relative p-6 bg-[#111] rounded-3xl border border-gray-800 hover:border-gray-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col"
@@ -54,10 +82,10 @@ const Projects = () => {
                                         <Database size={20} className="text-gray-300" />
                                     </div>
                                     <div className="flex gap-3">
-                                        <a href={project.github} className="text-gray-400 hover:text-white transition-colors">
+                                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                                             <Github size={20} />
                                         </a>
-                                        <a href={project.demo} className="text-gray-400 hover:text-white transition-colors">
+                                        <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                                             <ExternalLink size={20} />
                                         </a>
                                     </div>
