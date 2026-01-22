@@ -1,29 +1,21 @@
 import React from 'react';
-import { Github, ExternalLink, Code2, Database, Gamepad2, CloudSun, ShoppingCart } from 'lucide-react';
+import { Github, ExternalLink, Code2, Database, Gamepad2, CloudSun, ShoppingCart, Mic } from 'lucide-react';
 import FadeIn from './FadeIn';
 
 const projects = [
-    // 1. LeetCode Stats Tracker
+    // 1. Voice Sync AI (COMPLEXITY: EXTREME)
+    // Why #1: Handling raw audio streams (AudioWorklet), WebSockets, and real-time AI requires deep system understanding.
     {
-        title: "LeetCode Stats Tracker",
-        description: "Web app displaying detailed user stats with animated progress circles. Uses a custom Node.js proxy to handle LeetCode GraphQL API requests.",
-        tags: ["JavaScript", "Node.js", "GraphQL", "CSS", "API"],
-        github: "https://github.com/AyushMhaisane/leetcode-tracker",
-        demo: "https://ayush-mhaisane.vercel.app",
-        color: "from-yellow-500 to-orange-500",
-        icon: Database
+        title: "Voice Sync AI",
+        description: "Real-time streaming speech-to-text application powered by Google Gemini 2.0 Flash. Features low-latency WebSocket communication, raw PCM audio processing via AudioWorklet, and a neon glassmorphism UI.",
+        tags: ["React", "Node.js", "WebSocket", "Gemini 2.0 Flash", "AudioWorklet"],
+        github: "https://github.com/AyushMhaisane/voice-sync-ai",
+        demo: "#",
+        color: "from-cyan-400 to-purple-600",
+        icon: Mic
     },
-    // 2. Personal Portfolio
-    {
-        title: "Personal Portfolio (This Site)",
-        description: "Interactive portfolio featuring a custom AI Chatbot powered by Google Gemini, real-time backend integration, and 3D Bento Grid design. Optimized for SEO.",
-        tags: ["React", "Gemini AI", "Node.js", "MongoDB", "Framer Motion"],
-        github: "https://github.com/AyushMhaisane/my-portfolio-2026",
-        demo: "https://ayush-mhaisane.vercel.app",
-        color: "from-cyan-500 to-blue-500",
-        icon: Code2
-    },
-    // 3. AI-Powered IT Support
+    // 2. AI-Powered IT Support (COMPLEXITY: HIGH)
+    // Why #2: Involves workflow automation (n8n), Docker containerization, and full-stack logic with Supabase.
     {
         title: "AI-Powered IT Support Platform",
         description: "Full-stack ticket system with real-time chat. Uses Google Gemini via n8n workflows to automatically categorize issues and assign priority.",
@@ -33,27 +25,8 @@ const projects = [
         color: "from-indigo-500 to-violet-500",
         icon: Database
     },
-    // 4. React Tic Tac Toe
-    {
-        title: "React Tic Tac Toe",
-        description: "Classic game with a modern UI. Features two-player mode, automatic winner/tie detection, and color-coded moves (🔴 vs 🟢). Fully responsive design.",
-        tags: ["React.js", "CSS3", "Game Logic", "Interactive UI"],
-        github: "https://github.com/AyushMhaisane/tic-tac-toe-react",
-        demo: "https://tic-tac-toe-react.vercel.app",
-        color: "from-red-500 to-pink-600",
-        icon: Gamepad2
-    },
-    // 5. TechFlow Agency
-    {
-        title: "TechFlow Agency Website",
-        description: "High-performance digital agency site. Features real-time EmailJS forms, floating WhatsApp integration, and persuasion-focused Framer Motion animations.",
-        tags: ["React", "Tailwind", "Framer Motion", "EmailJS"],
-        github: "https://github.com/AyushMhaisane/techflow-agency",
-        demo: "https://techflow.vercel.app",
-        color: "from-blue-600 to-indigo-600",
-        icon: Code2
-    },
-    // 6. Airtable Dynamic Form Builder
+    // 3. Airtable Dynamic Form Builder (COMPLEXITY: HIGH)
+    // Why #3: SaaS architecture requiring OAuth 2.0 security, custom logic engines, and API synchronization.
     {
         title: "Airtable Dynamic Form Builder",
         description: "Full-stack SaaS app enabling users to create logic-driven forms synced with Airtable. Features OAuth 2.0, a custom client-side logic engine, and dual-write backups.",
@@ -63,7 +36,52 @@ const projects = [
         color: "from-emerald-500 to-green-600",
         icon: Database
     },
-    // 7. Weather App
+    // 4. Vibe Commerce Cart (COMPLEXITY: MEDIUM-HIGH)
+    // Why #4: State management (Redux) and backend price calculations are critical for reliable e-commerce.
+    {
+        title: "Vibe Commerce Cart",
+        description: "Full-stack shopping cart assignment. Features REST API design, MongoDB persistence, server-side price calculation, and dynamic data fetching from Fake Store API.",
+        tags: ["MERN Stack", "Redux/Context", "REST API", "MongoDB"],
+        github: "https://github.com/AyushMhaisane/vibe-commerce-cart",
+        demo: "#",
+        color: "from-violet-600 to-fuchsia-600",
+        icon: ShoppingCart
+    },
+    // 5. Personal Portfolio (COMPLEXITY: MEDIUM)
+    // Why #5: Integration of AI Chatbot with backend storage pushes this beyond a standard static site.
+    {
+        title: "Personal Portfolio (This Site)",
+        description: "Interactive portfolio featuring a custom AI Chatbot powered by Google Gemini, real-time backend integration, and 3D Bento Grid design. Optimized for SEO.",
+        tags: ["React", "Gemini AI", "Node.js", "MongoDB", "Framer Motion"],
+        github: "https://github.com/AyushMhaisane/my-portfolio-2026",
+        demo: "https://ayush-mhaisane.vercel.app",
+        color: "from-cyan-500 to-blue-500",
+        icon: Code2
+    },
+    // 6. LeetCode Stats Tracker (COMPLEXITY: MEDIUM)
+    // Why #6: Requires a custom Proxy server to handle GraphQL and CORS, but scope is limited to fetching.
+    {
+        title: "LeetCode Stats Tracker",
+        description: "Web app displaying detailed user stats with animated progress circles. Uses a custom Node.js proxy to handle LeetCode GraphQL API requests.",
+        tags: ["JavaScript", "Node.js", "GraphQL", "CSS", "API"],
+        github: "https://github.com/AyushMhaisane/leetcode-tracker",
+        demo: "https://ayush-mhaisane.vercel.app",
+        color: "from-yellow-500 to-orange-500",
+        icon: Database
+    },
+    // 7. TechFlow Agency Website (COMPLEXITY: LOW-MEDIUM)
+    // Why #7: Focus is on UI/UX and animation libraries rather than complex backend logic.
+    {
+        title: "TechFlow Agency Website",
+        description: "High-performance digital agency site. Features real-time EmailJS forms, floating WhatsApp integration, and persuasion-focused Framer Motion animations.",
+        tags: ["React", "Tailwind", "Framer Motion", "EmailJS"],
+        github: "https://github.com/AyushMhaisane/techflow-agency",
+        demo: "https://techflow.vercel.app",
+        color: "from-blue-600 to-indigo-600",
+        icon: Code2
+    },
+    // 8. Real-Time Weather App (COMPLEXITY: LOW)
+    // Why #8: Standard API fetching using Vanilla JS. Good fundamentals, but architecturally simple.
     {
         title: "Real-Time Weather App",
         description: "Minimalist weather dashboard using WeatherAPI. Fetches real-time temperature, humidity, and wind speeds for any global location. Built with pure Vanilla JS.",
@@ -73,15 +91,16 @@ const projects = [
         color: "from-sky-400 to-blue-300",
         icon: CloudSun
     },
-    // 8. Vibe Commerce Cart (NEW ADDITION)
+    // 9. React Tic Tac Toe (COMPLEXITY: BASIC)
+    // Why #9: Intro to React state logic. Important foundation, but the simplest project here.
     {
-        title: "Vibe Commerce Cart",
-        description: "Full-stack shopping cart assignment. Features REST API design, MongoDB persistence, server-side price calculation, and dynamic data fetching from Fake Store API.",
-        tags: ["MERN Stack", "Redux/Context", "REST API", "MongoDB"],
-        github: "https://github.com/AyushMhaisane/vibe-commerce-cart", // Update this link if needed
-        demo: "#", // Add demo link if available
-        color: "from-violet-600 to-fuchsia-600",
-        icon: ShoppingCart // Special Icon for Commerce
+        title: "React Tic Tac Toe",
+        description: "Classic game with a modern UI. Features two-player mode, automatic winner/tie detection, and color-coded moves (🔴 vs 🟢). Fully responsive design.",
+        tags: ["React.js", "CSS3", "Game Logic", "Interactive UI"],
+        github: "https://github.com/AyushMhaisane/tic-tac-toe-react",
+        demo: "https://tic-tac-toe-react.vercel.app",
+        color: "from-red-500 to-pink-600",
+        icon: Gamepad2
     }
 ];
 
@@ -98,7 +117,7 @@ const Projects = () => {
                     const IconComponent = project.icon || Database;
 
                     return (
-                        <FadeIn key={index} delay={index * 0.1}>
+                        <FadeIn key={index} delay={(index + 1) * 0.1}>
                             <div
                                 className="group relative p-6 bg-[#111] rounded-3xl border border-gray-800 hover:border-gray-700 transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full flex flex-col"
                             >
