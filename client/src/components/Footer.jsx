@@ -20,7 +20,7 @@ const Footer = () => {
                 <div className="flex flex-col items-center md:items-end gap-4">
                     {/* UPDATE YOUR EMAIL HERE */}
                     <a
-                        href="mailto:your.real.email@gmail.com"
+                        href="mailto:ayushmhaisane25@gmail.com"
                         className="flex items-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-cyan-50 transition-colors"
                     >
                         <Mail size={18} />
