@@ -42,40 +42,42 @@ const Contributions = () => {
 
     const contributionsList = [
         {
-            org: "Cal.com",
-            repo: "calcom/cal.com",
+            org: "HashTribe",
+            repo: "the-mayankjha/hashtribe",
             type: "Open Source",
             action: "Merged",
-            title: "Fix: Calendar timezone synchronization issue",
-            description: "Resolved a critical bug where timezones were desyncing for users in APAC regions. Improved date-fns implementation.",
-            prLink: "https://github.com/calcom/cal.com/pulls",
-            color: "text-orange-400",
-            bg: "bg-orange-500/10",
-            border: "border-orange-500/20"
+            title: "fix(deploy): resolve Vercel SPA routing failure caused by duplicate router providers",
+            description: "Diagnosed and fixed production-only routing failures on Vercel by removing a nested BrowserRouter from App.tsx and consolidating routing under the root provider in main.tsx, eliminating duplicate router context conflicts during client-side navigation.",
+            prLink: "https://github.com/the-mayankjha/hashtribe/pull/25",
+            color: "text-green-400",
+            bg: "bg-green-500/10",
+            border: "border-green-500/20"
         },
+
         {
-            org: "Strapi",
-            repo: "strapi/strapi",
+            org: "ExpenseFlow",
+            repo: "Renu-code123/ExpenseFlow",
             type: "Open Source",
             action: "Merged",
-            title: "Feat: Enhanced media library sorting",
-            description: "Added ability to sort media assets by upload date and file size in the admin panel dashboard.",
-            prLink: "https://github.com/strapi/strapi/pulls",
-            color: "text-purple-400",
-            bg: "bg-purple-500/10",
-            border: "border-purple-500/20"
+            title: "feat(auth): enforce progressive password validation with gated form submission",
+            description: "Implemented real-time password strength evaluation with progressive rule satisfaction feedback. Prevented premature account creation by conditionally disabling form submission until all security constraints are met, while dynamically updating UI to reduce cognitive overload.",
+            prLink: "https://github.com/Renu-code123/ExpenseFlow/pull/301",
+            color: "text-green-400",
+            bg: "bg-green-500/10",
+            border: "border-green-500/20"
         },
+
         {
-            org: "WordPress Core",
-            repo: "WordPress/gutenberg",
-            type: "Learning / Contrib",
-            action: "In Progress",
-            title: "Gutenberg Block Optimization",
-            description: "Currently exploring block rendering performance improvements within the WordPress Gutenberg editor architecture.",
-            prLink: "https://github.com/WordPress/gutenberg/pulls",
-            color: "text-blue-400",
-            bg: "bg-blue-500/10",
-            border: "border-blue-500/20"
+            org: "ExpenseFlow",
+            repo: "Renu-code123/ExpenseFlow",
+            type: "Open Source",
+            action: "Merged",
+            title: "feat(auth): implement accessible password visibility toggle with synchronized UI state",
+            description: "Added an accessible password visibility toggle to the registration flow by synchronizing input type changes with icon state and focus behavior. Improves password entry accuracy without disrupting existing validation or form lifecycle logic.",
+            prLink: "https://github.com/Renu-code123/ExpenseFlow/pull/315",
+            color: "text-green-400",
+            bg: "bg-green-500/10",
+            border: "border-green-500/20"
         }
     ];
 
@@ -92,7 +94,7 @@ const Contributions = () => {
                     </h2>
                 </div>
                 <p className="text-gray-400 max-w-lg">
-                    My journey in open source, from consistent daily coding to merging PRs in massive repositories.
+                    "My open-source journey, solving real-world frontend and deployment issues through production-ready pull requests."
                 </p>
             </div>
 
