@@ -1,6 +1,7 @@
+// File: src/sections/Projects.jsx
 import React from 'react';
 import { Github, ExternalLink, Code2, Database, Gamepad2, CloudSun, ShoppingCart, Mic } from 'lucide-react';
-import FadeIn from '../components/FadeIn'; // Adjusted path if needed
+import FadeIn from '../components/FadeIn';
 import SpotlightCard from '../components/SpotlightCard';
 
 const projects = [
@@ -19,7 +20,7 @@ const projects = [
         description: "Full-stack ticket system with real-time chat. Uses Google Gemini via n8n workflows to automatically categorize issues and assign priority.",
         tags: ["Next.js", "Supabase", "n8n", "Gemini AI", "Docker"],
         github: "https://github.com/AyushMhaisane/ai-ticket-system",
-        demo: "https://ai-ticket-system.vercel.app",
+        demo: "#",
         icon: Database
     },
     // 3. Airtable Dynamic Form Builder (COMPLEXITY: HIGH)
@@ -28,16 +29,16 @@ const projects = [
         description: "Full-stack SaaS app enabling users to create logic-driven forms synced with Airtable. Features OAuth 2.0, a custom client-side logic engine, and dual-write backups.",
         tags: ["MERN Stack", "Airtable API", "OAuth 2.0", "JWT Auth"],
         github: "https://github.com/AyushMhaisane/airtable-form-builder",
-        demo: "https://airtable-form-builder-dun.vercel.app",
+        demo: "#",
         icon: Database
     },
     // 4. Vibe Commerce Cart (COMPLEXITY: MEDIUM-HIGH)
     {
         title: "Vibe Commerce Cart",
-        description: "Full-stack shopping cart assignment. Features REST API design, MongoDB persistence, server-side price calculation, and dynamic data fetching from Fake Store API.",
-        tags: ["MERN Stack", "Redux/Context", "REST API", "MongoDB"],
-        github: "https://github.com/AyushMhaisane/vibe-commerce-cart",
-        demo: "#",
+        description: "Full-stack shopping cart assignment. Features REST API design, Firebase persistence, server-side price calculation, and dynamic data fetching from Fake Store API.",
+        tags: ["Full-Stack", "Redux/Context", "REST API", "Firebase"],
+        github: "https://github.com/AyushMhaisane/snacks-ordering-app",
+        demo: "https://snacks-ordering-app-ms7j.vercel.app/login",
         icon: ShoppingCart
     },
     // 5. Personal Portfolio (COMPLEXITY: MEDIUM)
@@ -54,8 +55,8 @@ const projects = [
         title: "LeetCode Stats Tracker",
         description: "Web app displaying detailed user stats with animated progress circles. Uses a custom Node.js proxy to handle LeetCode GraphQL API requests.",
         tags: ["JavaScript", "Node.js", "GraphQL", "CSS", "API"],
-        github: "https://github.com/AyushMhaisane/leetcode-tracker",
-        demo: "https://ayush-mhaisane.vercel.app",
+        github: "https://github.com/AyushMhaisane/leetcode-stats-tracker",
+        demo: "https://paste-app-yzd9.vercel.app",
         icon: Database
     },
     // 7. TechFlow Agency Website (COMPLEXITY: LOW-MEDIUM)
@@ -64,7 +65,7 @@ const projects = [
         description: "High-performance digital agency site. Features real-time EmailJS forms, floating WhatsApp integration, and persuasion-focused Framer Motion animations.",
         tags: ["React", "Tailwind", "Framer Motion", "EmailJS"],
         github: "https://github.com/AyushMhaisane/techflow-agency",
-        demo: "https://techflow.vercel.app",
+        demo: "https://business-page-gold-iota.vercel.app",
         icon: Code2
     },
     // 8. Real-Time Weather App (COMPLEXITY: LOW)
@@ -126,12 +127,12 @@ const Projects = () => {
                                     {project.description}
                                 </p>
 
-                                {/* 3. TECH STACK (Updated Style) */}
+                                {/* 3. TECH STACK (Unified Premium Style) */}
                                 <div className="mt-auto flex flex-wrap gap-2">
                                     {project.tags.map((tag, i) => (
                                         <span
                                             key={i}
-                                            className="text-[10px] font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/5 text-gray-400 border border-white/5 group-hover:border-cyan-500/30 group-hover:text-cyan-300 transition-colors"
+                                            className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-md bg-white/5 text-gray-400 border border-white/5 group-hover:border-cyan-500/30 group-hover:text-cyan-300 transition-colors duration-300"
                                         >
                                             {tag}
                                         </span>
