@@ -9,10 +9,10 @@ import { Helmet } from 'react-helmet-async';
 const Hero = () => {
     // STATIC STATS (Fast & Reliable)
     const leetcodeStats = {
-        total: '170+',
+        total: '180+',
         easy: '50+',
         medium: '100+',
-        hard: '20+'
+        hard: '10+'
     };
 
     return (

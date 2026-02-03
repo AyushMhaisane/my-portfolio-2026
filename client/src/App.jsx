@@ -41,6 +41,9 @@ function App() {
         <TechStack />
       </FadeIn>
 
+      <FadeIn>
+        <Experience/>
+      </FadeIn>
       {/* Projects */}
       <FadeIn>
         <Projects />
@@ -57,9 +60,6 @@ function App() {
       </FadeIn>
 
       {/* Experience */}
-      <FadeIn>
-        <Experience />
-      </FadeIn>
 
       {/* Education */}
       <FadeIn>
