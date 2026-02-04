@@ -1,5 +1,5 @@
 
-```markdown
+
 # ⚡ Ayush Mhaisane | Full Stack Portfolio
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-ayushmhaisane.in-06b6d4?style=for-the-badge&logo=vercel)](https://ayushmhaisane.in)
@@ -158,4 +158,3 @@ The project is designed for seamless deployment:
 
 ```
 
-```
