@@ -55,7 +55,7 @@ const Experience = () => {
       role: "Cyber Security Intern",
       period: "Dec 2025 - Present",
       location: "Pune, Maharashtra",
-      current: true,
+      current: false,
       description: [
         <>
           Analyzing
