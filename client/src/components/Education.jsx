@@ -1,125 +1,228 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GraduationCap, Calendar, BookOpen, ExternalLink } from 'lucide-react';
-// 1. Remove RevealOnScroll and Import FadeIn
-import FadeIn from './FadeIn';
 
-const Education = () => {
-    const educationData = [
-        {
-            degree: "B.E. in Information Technology",
-            school: "D.Y. Patil College of Engineering, Akurdi",
-            year: "2024 - Present",
-            grade: "2nd Year SGPA: 9.25",
-            desc: "Specializing in full-stack development and scalable software architecture. Active member of the Open Source community.",
-            link: "http://www.dypcoeakurdi.ac.in/",
-            courses: ["Data Structures & Algo", "Database Management", "OS", "Computer Networks", "Object-Oriented Programming"]
-        },
-        {
-            degree: "Diploma in Information Technology",
-            school: "Government Polytechnic, Amravati",
-            year: "2021 - 2024",
-            grade: "Percentage: 92.89%",
-            desc: "Graduated with distinction. Built a strong foundation in computer science principles and early web technologies.",
-            link: "https://www.gpamravati.ac.in/",
-            courses: ["Java Programming", "Web Development", "Software Engineering", "C++", "Linux Administration"]
-        },
-    ];
+const EDUCATION = [
+    {
+        degree: "B.E. in Information Technology",
+        short: "B.E. IT",
+        school: "D.Y. Patil College of Engineering, Akurdi",
+        year: "2024 – Present",
+        grade: "SGPA 9.25",
+        gradeLabel: "2nd Year",
+        desc: "Specializing in full-stack development and scalable software architecture. Active member of the Open Source community.",
+        link: "http://www.dypcoeakurdi.ac.in/",
+        accent: "#06b6d4",
+        accentBg: "rgba(6,182,212,0.08)",
+        accentBorder: "rgba(6,182,212,0.2)",
+        courses: [
+            "Data Structures & Algo",
+            "Database Management",
+            "Operating Systems",
+            "Computer Networks",
+            "Object-Oriented Programming",
+        ],
+    },
+    {
+        degree: "Diploma in Information Technology",
+        short: "Diploma IT",
+        school: "Government Polytechnic, Amravati",
+        year: "2021 – 2024",
+        grade: "92.89%",
+        gradeLabel: "Percentage",
+        desc: "Graduated with distinction. Built a strong foundation in computer science principles and early web technologies.",
+        link: "https://www.gpamravati.ac.in/",
+        accent: "#a78bfa",
+        accentBg: "rgba(167,139,250,0.08)",
+        accentBorder: "rgba(167,139,250,0.2)",
+        courses: [
+            "Java Programming",
+            "Web Development",
+            "Software Engineering",
+            "C++",
+            "Linux Administration",
+        ],
+    },
+];
+
+const EduCard = ({ edu, index }) => {
+    const [hovered, setHovered] = useState(false);
 
     return (
-        <section id="education" className="py-20 px-4 md:px-8 max-w-5xl mx-auto">
+        <div
+            className="relative rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1"
+            style={{
+                background: hovered ? edu.accentBg : 'rgba(255,255,255,0.02)',
+                borderColor: hovered ? edu.accentBorder : 'rgba(255,255,255,0.07)',
+                animation: `fadeUp 0.5s ${index * 0.15}s ease both`,
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+        >
+            {/* Top accent line */}
+            <div
+                className="h-[2px] transition-all duration-500"
+                style={{
+                    width: hovered ? '100%' : '0%',
+                    background: `linear-gradient(to right, ${edu.accent}, transparent)`,
+                }}
+            />
+
+            {/* Radial glow */}
+            <div
+                className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-500"
+                style={{
+                    opacity: hovered ? 1 : 0,
+                    background: `radial-gradient(ellipse at top left, ${edu.accent}0d, transparent 60%)`,
+                }}
+            />
+
+            <div className="relative z-10 p-6 md:p-8">
+                <div className="flex flex-col md:flex-row md:items-start gap-6">
+
+                    {/* Left: degree avatar */}
+                    <div
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 text-xs font-extrabold leading-tight text-center"
+                        style={{
+                            background: edu.accentBg,
+                            border: `1px solid ${edu.accentBorder}`,
+                            color: edu.accent,
+                            fontFamily: 'Syne, sans-serif',
+                        }}
+                    >
+                        <GraduationCap size={20} style={{ color: edu.accent }} />
+                    </div>
+
+                    {/* Center: main info */}
+                    <div className="flex-1 min-w-0">
+
+                        {/* Degree + year (mobile) */}
+                        <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                            <h3
+                                className="text-lg font-extrabold text-white leading-snug"
+                                style={{ fontFamily: 'Syne, sans-serif' }}
+                            >
+                                {edu.degree}
+                            </h3>
+                            <span
+                                className="md:hidden inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1 rounded-full"
+                                style={{
+                                    background: edu.accentBg,
+                                    border: `1px solid ${edu.accentBorder}`,
+                                    color: edu.accent,
+                                }}
+                            >
+                                <Calendar size={10} /> {edu.year}
+                            </span>
+                        </div>
+
+                        {/* School */}
+                        <a
+                            href={edu.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-sm text-white/40 hover:text-white/80 transition-colors mb-4 group/link"
+                        >
+                            {edu.school}
+                            <ExternalLink size={11} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                        </a>
+
+                        {/* Desc */}
+                        <p className="text-sm text-white/45 leading-relaxed mb-5 max-w-2xl">
+                            {edu.desc}
+                        </p>
+
+                        {/* Courses */}
+                        <div className="flex flex-wrap gap-2">
+                            {edu.courses.map((course) => (
+                                <span
+                                    key={course}
+                                    className="text-[11px] font-medium px-2.5 py-1 rounded-full transition-all duration-200 cursor-default"
+                                    style={{
+                                        background: edu.accentBg,
+                                        border: `1px solid ${edu.accentBorder}`,
+                                        color: edu.accent,
+                                    }}
+                                >
+                                    {course}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Right: year + grade (desktop) */}
+                    <div className="hidden md:flex flex-col items-end gap-2 flex-shrink-0">
+                        <span
+                            className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full whitespace-nowrap"
+                            style={{
+                                background: edu.accentBg,
+                                border: `1px solid ${edu.accentBorder}`,
+                                color: edu.accent,
+                            }}
+                        >
+                            <Calendar size={11} /> {edu.year}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 whitespace-nowrap">
+                            <BookOpen size={11} /> {edu.gradeLabel}: {edu.grade}
+                        </span>
+                    </div>
+
+                </div>
+
+                {/* Mobile grade */}
+                <div className="md:hidden mt-4">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                        <BookOpen size={11} /> {edu.gradeLabel}: {edu.grade}
+                    </span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const Education = () => (
+    <section id="education" className="relative py-24 px-5 bg-[#080b10] overflow-hidden">
+
+        {/* Ambient blobs */}
+        <div className="pointer-events-none absolute top-0 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.04] blur-[110px]" />
+        <div className="pointer-events-none absolute bottom-0 left-1/4 w-[350px] h-[350px] rounded-full bg-violet-500/[0.04] blur-[110px]" />
+
+        <div className="relative z-10 max-w-4xl mx-auto">
 
             {/* Header */}
-            <div className="flex items-center justify-center gap-3 mb-16">
-                <GraduationCap className="text-cyan-400" size={32} />
-                <h2 className="text-4xl font-bold text-white">
-                    Education <span className="text-cyan-400">&</span> Certification
+            <div className="mb-14 text-center">
+                <p className="text-[11px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3">
+                    Academic background
+                </p>
+                <h2
+                    className="text-4xl md:text-5xl font-extrabold text-white"
+                    style={{ fontFamily: 'Syne, sans-serif', letterSpacing: '-1px' }}
+                >
+                    Education <span className="text-cyan-400">&amp;</span> Certifications
                 </h2>
             </div>
 
-            <div className="space-y-8">
-                {educationData.map((edu, index) => (
-                    // 2. WRAPPER: Use FadeIn with staggered delay
-                    <FadeIn key={index} delay={index * 0.2}>
-                        <div className="group relative bg-[#111] border border-gray-800 rounded-3xl overflow-hidden hover:border-cyan-500/30 transition-all duration-300 hover:-translate-y-1">
-
-                            {/* Subtle Background Gradient for Depth */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                            <div className="p-8 md:p-10 relative z-10 flex flex-col md:flex-row gap-8">
-
-                                {/* Left Side: Degree & School */}
-                                <div className="flex-1">
-                                    <div className="flex items-start justify-between mb-4">
-                                        <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-                                            {edu.degree}
-                                        </h3>
-
-                                        {/* Mobile Date */}
-                                        <span className="md:hidden text-sm text-cyan-400 font-mono border border-cyan-500/20 px-2 py-1 rounded bg-cyan-500/5">
-                                            {edu.year}
-                                        </span>
-                                    </div>
-
-                                    <p className="text-gray-400 font-medium text-lg mb-4">
-                                        {edu.school}
-                                    </p>
-
-                                    <p className="text-gray-500 text-sm leading-relaxed mb-6 max-w-2xl">
-                                        {edu.desc}
-                                    </p>
-
-                                    {/* Course Tags */}
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {edu.courses.map((course, i) => (
-                                            <span
-                                                key={i}
-                                                className="px-3 py-1 bg-white/5 text-gray-400 text-xs font-medium rounded-lg border border-white/5 transition-all hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-500/20 cursor-default"
-                                            >
-                                                {course}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    {/* Visit Link */}
-                                    <a
-                                        href={edu.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors"
-                                    >
-                                        Visit Website <ExternalLink size={14} />
-                                    </a>
-                                </div>
-
-                                {/* Right Side: Date & Grade (Desktop) */}
-                                <div className="hidden md:flex flex-col items-end gap-3 min-w-[140px]">
-                                    <span className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full text-cyan-400 text-sm font-bold border border-white/10">
-                                        <Calendar size={16} /> {edu.year}
-                                    </span>
-
-                                    {edu.grade && (
-                                        <span className="flex items-center gap-2 px-4 py-2 bg-green-500/10 rounded-full text-green-400 text-sm font-bold border border-green-500/20 shadow-[0_0_10px_rgba(74,222,128,0.1)]">
-                                            <BookOpen size={16} /> {edu.grade}
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Mobile Grade */}
-                                <div className="md:hidden mt-2">
-                                    {edu.grade && (
-                                        <span className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 rounded-full text-green-400 text-sm font-bold border border-green-500/20">
-                                            <BookOpen size={16} /> {edu.grade}
-                                        </span>
-                                    )}
-                                </div>
-
-                            </div>
-                        </div>
-                    </FadeIn>
+            {/* Cards */}
+            <div className="flex flex-col gap-5">
+                {EDUCATION.map((edu, i) => (
+                    <EduCard key={i} edu={edu} index={i} />
                 ))}
             </div>
-        </section>
-    );
-};
+
+            {/* Timeline footnote */}
+            <div className="mt-10 flex items-center gap-3 justify-center">
+                <div className="h-px w-16 bg-white/10" />
+                <p className="text-xs text-white/20 tracking-widest uppercase">Continuous learning</p>
+                <div className="h-px w-16 bg-white/10" />
+            </div>
+        </div>
+
+        <style>{`
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0);    }
+      }
+    `}</style>
+    </section>
+);
 
 export default Education;

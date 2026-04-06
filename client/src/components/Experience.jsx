@@ -1,227 +1,246 @@
-import React from "react";
-import { Briefcase, Calendar, MapPin, Zap } from "lucide-react";
-import FadeIn from "./FadeIn";
+import React, { useState } from "react";
+import { Briefcase, Calendar, MapPin, Zap, ChevronDown } from "lucide-react";
 
-const Experience = () => {
-  const experiences = [
-    {
-      company: "Kyoto Creative (Ark Global Ventures)",
-      role: "Full Stack Intern",
-      period: "Feb 2026 - Present",
-      location: "Remote",
-      current: true,
-      description: [
-        <>
-          Building full-stack web features using
-          <span className="text-cyan-400 font-medium"> React </span>
-          and modern
-          <span className="text-cyan-400 font-medium"> JavaScript</span>.
-        </>,
-        <>
-          Integrating backend
-          <span className="text-cyan-400 font-medium"> APIs </span>
-          to enable smooth communication between frontend and server.
-        </>,
-        <>
-          Debugging real-world production issues and improving
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            application performance
-          </span>.
-        </>,
-        <>
-          Participating in daily development sessions, sprint discussions,
-          and
-          <span className="text-cyan-400 font-medium"> code reviews</span>.
-        </>,
-        <>
-          Delivering development tasks within strict timelines using
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            clean code practices
-          </span>.
-        </>
-      ],
-      skills: [
-        "React",
-        "JavaScript",
-        "Full Stack Development",
-        "API Integration",
-        "Debugging"
-      ]
-    },
-    {
-      company: "Cyber Cell, Pimpri Chinchwad Police",
-      role: "Cyber Security Intern",
-      period: "Dec 2025 - Present",
-      location: "Pune, Maharashtra",
-      current: false,
-      description: [
-        <>
-          Analyzing
-          <span className="text-cyan-400 font-medium"> digital footprints </span>
-          and server logs to support cybercrime investigations.
-        </>,
-        <>
-          Using
-          <span className="text-cyan-400 font-medium"> OSINT tools </span>
-          to collect intelligence from open-source platforms.
-        </>,
-        <>
-          Identifying suspicious online activity patterns during
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            technical investigations
-          </span>.
-        </>,
-        <>
-          Supporting investigators in processing
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            large technical datasets
-          </span>
-          under tight timelines.
-        </>
-      ],
-      skills: ["OSINT", "Digital Forensics", "Log Analysis", "Cyber Investigation"]
-    },
-    {
-      company: "Compilers Technologies",
-      role: "Software & Web Development Intern",
-      period: "June 2023 - July 2023",
-      location: "Amravati, Maharashtra",
-      current: false,
-      description: [
-        <>
-          Completed hands-on training in
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            Advanced Java
-          </span>
-          technologies including Swing, JDBC, and Servlets.
-        </>,
-        <>
-          Built
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            GUI desktop applications
-          </span>
-          with database connectivity using JDBC.
-        </>,
-        <>
-          Developed dynamic backend functionality using
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            Servlet architecture
-          </span>.
-        </>,
-        <>
-          Gained exposure to the
-          <span className="text-cyan-400 font-medium">
-            {" "}
-            Software Development Lifecycle
-          </span>.
-        </>
-      ],
-      skills: ["Java", "JDBC", "Servlets", "SDLC"]
-    }
-  ];
+const EXPERIENCES = [
+  {
+    company: "Kyoto Creative (Ark Global Ventures)",
+    role: "Full Stack Intern",
+    period: "Feb 2026 – Present",
+    location: "Remote",
+    current: true,
+    accent: "#06b6d4",
+    accentBg: "rgba(6,182,212,0.07)",
+    accentBorder: "rgba(6,182,212,0.2)",
+    letter: "K",
+    description: [
+      <>Building full-stack web features using <span className="text-cyan-400 font-medium">React</span> and modern <span className="text-cyan-400 font-medium">JavaScript</span>.</>,
+      <>Integrating backend <span className="text-cyan-400 font-medium">APIs</span> to enable smooth communication between frontend and server.</>,
+      <>Debugging real-world production issues and improving <span className="text-cyan-400 font-medium">application performance</span>.</>,
+      <>Participating in daily development sessions, sprint discussions, and <span className="text-cyan-400 font-medium">code reviews</span>.</>,
+      <>Delivering development tasks within strict timelines using <span className="text-cyan-400 font-medium">clean code practices</span>.</>,
+    ],
+    skills: ["React", "JavaScript", "Full Stack Development", "API Integration", "Debugging"],
+  },
+  {
+    company: "Cyber Cell, Pimpri Chinchwad Police",
+    role: "Cyber Security Intern",
+    period: "Dec 2025 – Present",
+    location: "Pune, Maharashtra",
+    current: true,
+    accent: "#10b981",
+    accentBg: "rgba(16,185,129,0.07)",
+    accentBorder: "rgba(16,185,129,0.2)",
+    letter: "C",
+    description: [
+      <>Analyzing <span className="text-emerald-400 font-medium">digital footprints</span> and server logs to support cybercrime investigations.</>,
+      <>Using <span className="text-emerald-400 font-medium">OSINT tools</span> to collect intelligence from open-source platforms.</>,
+      <>Identifying suspicious online activity patterns during <span className="text-emerald-400 font-medium">technical investigations</span>.</>,
+      <>Supporting investigators in processing <span className="text-emerald-400 font-medium">large technical datasets</span> under tight timelines.</>,
+    ],
+    skills: ["OSINT", "Digital Forensics", "Log Analysis", "Cyber Investigation"],
+  },
+  {
+    company: "Compilers Technologies",
+    role: "Software & Web Development Intern",
+    period: "June 2023 – July 2023",
+    location: "Amravati, Maharashtra",
+    current: false,
+    accent: "#a78bfa",
+    accentBg: "rgba(167,139,250,0.07)",
+    accentBorder: "rgba(167,139,250,0.2)",
+    letter: "CT",
+    description: [
+      <>Completed hands-on training in <span className="text-violet-400 font-medium">Advanced Java</span> technologies including Swing, JDBC, and Servlets.</>,
+      <>Built <span className="text-violet-400 font-medium">GUI desktop applications</span> with database connectivity using JDBC.</>,
+      <>Developed dynamic backend functionality using <span className="text-violet-400 font-medium">Servlet architecture</span>.</>,
+      <>Gained exposure to the <span className="text-violet-400 font-medium">Software Development Lifecycle</span>.</>,
+    ],
+    skills: ["Java", "JDBC", "Servlets", "SDLC"],
+  },
+];
+
+const ExperienceCard = ({ exp, index }) => {
+  const [open, setOpen] = useState(index === 0);
 
   return (
-    <section id="experience" className="py-14 px-4 md:px-8 max-w-7xl mx-auto">
-      {/* Title */}
-      <div className="flex items-center gap-3 mb-12">
-        <Briefcase className="text-cyan-400" size={30} />
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent">
-          Work Experience
+    <div
+      className="relative pl-10 md:pl-14"
+      style={{ animation: `fadeUp 0.5s ${index * 0.12}s ease both` }}
+    >
+      {/* Timeline dot */}
+      <div
+        className="absolute left-0 top-6 w-4 h-4 rounded-full border-[3px] border-[#080b10] z-10 transition-transform duration-300"
+        style={{ background: exp.accent, boxShadow: `0 0 12px ${exp.accent}60` }}
+      />
+
+      {/* Card */}
+      <div
+        className="rounded-2xl border transition-all duration-300 overflow-hidden"
+        style={{
+          background: open ? exp.accentBg : "rgba(255,255,255,0.02)",
+          borderColor: open ? exp.accentBorder : "rgba(255,255,255,0.07)",
+        }}
+      >
+        {/* Header — always visible */}
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="w-full flex items-start gap-4 p-5 md:p-6 text-left"
+        >
+          {/* Company avatar */}
+          <div
+            className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center text-xs font-extrabold"
+            style={{
+              background: exp.accentBg,
+              border: `1px solid ${exp.accentBorder}`,
+              color: exp.accent,
+              fontFamily: "Syne, sans-serif",
+            }}
+          >
+            {exp.letter}
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2 mb-0.5">
+              <h3
+                className="text-base font-bold text-white leading-tight"
+                style={{ fontFamily: "Syne, sans-serif" }}
+              >
+                {exp.role}
+              </h3>
+              {exp.current && (
+                <span
+                  className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full"
+                  style={{
+                    background: "rgba(16,185,129,0.1)",
+                    border: "1px solid rgba(16,185,129,0.25)",
+                    color: "#10b981",
+                  }}
+                >
+                  <Zap size={9} /> Live
+                </span>
+              )}
+            </div>
+            <p className="text-sm text-white/40 truncate">{exp.company}</p>
+
+            <div className="flex flex-wrap gap-3 mt-2">
+              <span className="flex items-center gap-1 text-[11px] text-white/30">
+                <Calendar size={11} style={{ color: exp.accent }} />
+                {exp.period}
+              </span>
+              <span className="flex items-center gap-1 text-[11px] text-white/30">
+                <MapPin size={11} />
+                {exp.location}
+              </span>
+            </div>
+          </div>
+
+          <ChevronDown
+            size={16}
+            className="flex-shrink-0 mt-1 text-white/30 transition-transform duration-300"
+            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          />
+        </button>
+
+        {/* Expandable body */}
+        <div
+          className="overflow-hidden transition-all duration-400"
+          style={{ maxHeight: open ? "600px" : "0px" }}
+        >
+          <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0">
+            {/* Divider */}
+            <div
+              className="h-px mb-5"
+              style={{ background: `linear-gradient(to right, ${exp.accentBorder}, transparent)` }}
+            />
+
+            {/* Description */}
+            <ul className="space-y-3 mb-5">
+              {exp.description.map((item, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm text-white/55 leading-relaxed">
+                  <span
+                    className="mt-[7px] w-1.5 h-1.5 rounded-full flex-shrink-0"
+                    style={{ background: exp.accent }}
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Skills */}
+            <div className="flex flex-wrap gap-2">
+              {exp.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="text-[11px] font-medium px-3 py-1 rounded-full transition-all duration-200"
+                  style={{
+                    background: exp.accentBg,
+                    border: `1px solid ${exp.accentBorder}`,
+                    color: exp.accent,
+                  }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Experience = () => (
+  <section id="experience" className="relative py-24 px-5 bg-[#080b10] overflow-hidden">
+
+    {/* Ambient blob */}
+    <div className="pointer-events-none absolute top-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/[0.04] blur-[100px]" />
+
+    <div className="relative z-10 max-w-3xl mx-auto">
+
+      {/* Header */}
+      <div className="mb-14 text-center">
+        <p className="text-[11px] font-semibold tracking-[0.2em] text-white/30 uppercase mb-3">
+          Where I've worked
+        </p>
+        <h2
+          className="text-4xl md:text-5xl font-extrabold text-white"
+          style={{ fontFamily: "Syne, sans-serif", letterSpacing: "-1px" }}
+        >
+          Work <span className="text-cyan-400">Experience</span>
         </h2>
       </div>
 
-      {/* Timeline Container */}
+      {/* Timeline */}
       <div className="relative">
+        {/* Vertical line */}
+        <div
+          className="absolute left-[7px] top-0 w-px h-full"
+          style={{ background: "linear-gradient(to bottom, rgba(6,182,212,0.4), rgba(6,182,212,0.05) 80%, transparent)" }}
+        />
 
-        {/* Timeline Line */}
-        <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-cyan-400 via-cyan-500/40 to-transparent"></div>
-
-        {experiences.map((exp, index) => (
-          <div
-            key={index}
-            className={`relative flex flex-col md:flex-row md:items-start group ${
-              index % 2 !== 0 ? "md:flex-row-reverse" : ""
-            }`}
-          >
-            {/* Timeline Dot */}
-            <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400 border-4 border-[#0a0a0a] top-7 z-10 group-hover:scale-125 group-hover:shadow-[0_0_12px_#22d3ee] transition-all duration-300"></div>
-
-            {/* Card */}
-            <div className={`md:w-1/2 ${index % 2 === 0 ? "md:pr-8" : "md:pl-8"}`}>
-              <FadeIn delay={index * 0.2} direction={index % 2 === 0 ? "left" : "right"}>
-                <div className="bg-[#0f0f0f] border border-gray-800 rounded-2xl p-6 transition-all duration-300 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] hover:-translate-y-1">
-
-                  {/* Header */}
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-white group-hover:text-cyan-300 transition-colors">
-                        {exp.role}
-                      </h3>
-                      <p className="text-gray-400 text-sm">{exp.company}</p>
-
-                      {exp.current && (
-                        <span className="inline-flex items-center gap-1 mt-2 text-xs text-green-400 bg-green-500/10 border border-green-500/30 px-2 py-0.5 rounded-md shadow-[0_0_8px_rgba(34,197,94,0.3)]">
-                          <Zap size={12} /> Currently Working
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col items-start md:items-end text-sm text-gray-500 gap-1">
-                      <span className="flex items-center gap-1.5 bg-gray-900 px-3 py-1 rounded-full border border-gray-800">
-                        <Calendar size={14} className="text-cyan-400" />
-                        {exp.period}
-                      </span>
-
-                      <span className="flex items-center gap-1.5">
-                        <MapPin size={14} />
-                        {exp.location}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <ul className="space-y-3 mb-5">
-                    {exp.description.map((item, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start text-gray-400 text-sm leading-6"
-                      >
-                        <span className="text-cyan-400 mt-[3px] mr-2">•</span>
-                        <span className="flex-1">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Skills */}
-                  <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-800/60">
-                    {exp.skills.map((skill, i) => (
-                      <span
-                        key={i}
-                        className="text-xs px-3 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20 transition"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                </div>
-              </FadeIn>
-            </div>
-
-            {/* Spacer */}
-            <div className="hidden md:block md:w-1/2"></div>
-          </div>
-        ))}
+        <div className="flex flex-col gap-5">
+          {EXPERIENCES.map((exp, i) => (
+            <ExperienceCard key={i} exp={exp} index={i} />
+          ))}
+        </div>
       </div>
-    </section>
-  );
-};
+
+      {/* End of timeline */}
+      <div className="pl-10 md:pl-14 mt-6">
+        <p className="text-xs text-white/20 flex items-center gap-2">
+          <span className="w-3 h-px bg-white/20" />
+          More experience to come
+        </p>
+      </div>
+    </div>
+
+    <style>{`
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(18px); }
+        to   { opacity: 1; transform: translateY(0);    }
+      }
+    `}</style>
+  </section>
+);
 
 export default Experience;
